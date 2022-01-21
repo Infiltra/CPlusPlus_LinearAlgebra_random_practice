@@ -40,7 +40,7 @@ void displayVec(float *arr, int m, int n){
 int main(){
     // SNR parameters to be added to the noise
     float snr_db = 10;
-    cout << setprecision(4);
+    cout << setprecision(5);
     cout << "Enter the number of samples in 2^n" << '\t';
     cin >> m;
     cout << endl;
@@ -152,13 +152,21 @@ int main(){
             
         }
     }
+    cout << "Real component of channel and signal" << endl;
+    displayVec((float *) M_real, m, 1);
+    cout << "Imaginary component of channel and signal" << endl;
+    displayVec((float *) M_imag, m, 1);
     float y_real[m], y_imag[m];
     for (int i = 0; i < m; ++i)
     {
         for (int j = 0; j < 1; ++j)
         {
-         y_real[i] = M_real[i] + pow(10, (-snr_db/20))*noise_real[i];
-         y_imag[i] = M_real[i] + pow(10, (-snr_db/20))*noise_real[i];
+            if (i==0&&j==0 || i==0&&j==1 || i==1&&j==0 || i==1&&j==1){
+                y_real[0] = M_real[0] + pow(10, (-snr_db/20))*noise_real[0];
+                y_real[1] = M_real[1] + pow(10, (-snr_db/20))*noise_real[1];
+                y_imag[0] = M_imag[0] + pow(10, (-snr_db/20))*noise_imag[0];
+                y_imag[1] = M_imag[1] + pow(10, (-snr_db/20))*noise_imag[1];
+            }
         }
     }
     cout << "The real components of received signal" << endl;
