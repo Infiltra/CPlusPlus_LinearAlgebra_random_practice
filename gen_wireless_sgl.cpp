@@ -135,7 +135,6 @@ int main(){
     displayVec((float *)noise_imag, m, 1);
     // the nose and signal array is now in Nx1 format, this was done with pre-forming of array values
     // generate wireless received signal
-    // SNR and other equalization paramters for gaussian is not yet included in the equation
     // One way for now would be to make this work only for a 2x2 channel
     float M_real[m], M_imag[m];
     for (int i = 0; i < m; ++i)
@@ -157,7 +156,7 @@ int main(){
     {
         for (int j = 0; j < 1; ++j)
         {
-         y_real[i] = M_real[i] + pow(10, (-snr_db/20))*noise_real[i];
+         y_real[i] = M_real[i] + pow(10, (-snr_db/20))*noise_real[i]; // SNR is included with noise
          y_imag[i] = M_real[i] + pow(10, (-snr_db/20))*noise_real[i];
         }
     }
